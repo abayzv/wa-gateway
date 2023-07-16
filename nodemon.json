@@ -1,5 +1,8 @@
 {
     "execMap": {
       "ts": "ts-node --files ./src/index.ts"
-    }
+    },
+    "ignore": [
+      "wa-state"
+    ]
   }

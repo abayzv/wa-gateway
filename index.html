@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div>Hello World</div>
+    <div id="myQr">
+        <img src="" alt="">
+    </div>
+    <button id="refresh-btn">Refresh</button>
+
+    <script>
+        
+        function generateQrCode(){
+            fetch('http://localhost:5000/api/v1/wa-gateway/qr-code/ilham')
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                document.getElementById('myQr').innerHTML = `<img src="${data.qrCode}" alt="">`;
+            });
+        }
+        
+
+        // refresh qr code
+        document.getElementById('refresh-btn').addEventListener('click', function(){
+            generateQrCode();
+        });
+
+
+    </script>
+
+</body>
+</html>
