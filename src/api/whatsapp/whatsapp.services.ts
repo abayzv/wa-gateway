@@ -25,7 +25,7 @@ export interface WaGateway {
   status: string;
   profile: any;
   sendMessage(number: string, message: string): Promise<any>;
-  sendTemplateMessage(number: string, message: string): Promise<any>;
+  sendTemplateMessage(number: string, message: string, list: any): Promise<any>;
   sendImage(number: string, message: string, imageUrl: string): Promise<any>;
   logout(): Promise<any>;
 }
@@ -99,7 +99,7 @@ class Wa implements WaGateway {
     }
   }
 
-  async sendTemplateMessage(number: string, message: string) {
+  async sendTemplateMessage(number: string, message: string, list: any) {
     // if number first ist 0, replace with 62
     if (number[0] === "0") {
       number = number.replace("0", "62");
@@ -107,35 +107,10 @@ class Wa implements WaGateway {
 
     const id = `${number}@s.whatsapp.net`;
 
-    //send a template message!
-    const templateButtons = [
-      {
-        index: 1,
-        urlButton: {
-          displayText: "⭐ Star Baileys on GitHub!",
-          url: "https://github.com/adiwajshing/Baileys",
-        },
-      },
-      {
-        index: 2,
-        callButton: {
-          displayText: "Call me!",
-          phoneNumber: "+1 (234) 5678-901",
-        },
-      },
-      {
-        index: 3,
-        quickReplyButton: {
-          displayText: "This is a reply, just like normal buttons!",
-          id: "id-like-buttons-message",
-        },
-      },
-    ];
-
     const templateMessage = {
-      text: "Hi it's a template message",
-      footer: "Hello World",
-      templateButtons: templateButtons,
+      text: message,
+      footer: "mahesadev.com",
+      templateButtons: list,
     };
 
     try {

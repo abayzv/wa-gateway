@@ -51,21 +51,9 @@ async function main() {
     },
   });
 
-  const teacher = await prisma.role.create({
+  const user = await prisma.role.create({
     data: {
-      name: "teacher",
-    },
-  });
-
-  const student = await prisma.role.create({
-    data: {
-      name: "student",
-    },
-  });
-
-  const parent = await prisma.role.create({
-    data: {
-      name: "parent",
+      name: "user",
     },
   });
 
@@ -91,28 +79,10 @@ async function main() {
     ],
   });
 
-  const teacherPermission = await prisma.rolePermission.createMany({
+  const userPermission = await prisma.rolePermission.createMany({
     data: [
       {
-        roleId: teacher.id,
-        permissionId: read.id,
-      },
-    ],
-  });
-
-  const studentPermission = await prisma.rolePermission.createMany({
-    data: [
-      {
-        roleId: student.id,
-        permissionId: read.id,
-      },
-    ],
-  });
-
-  const parentPermission = await prisma.rolePermission.createMany({
-    data: [
-      {
-        roleId: parent.id,
+        roleId: user.id,
         permissionId: read.id,
       },
     ],
@@ -146,114 +116,17 @@ async function main() {
     },
   });
 
-  // create user teacher
-  const teacherUser = await prisma.user.create({
+  // create user
+  const normalUser = await prisma.user.create({
     data: {
       email: "bayu@gmail.com",
       password: bcrypt.hashSync("P@ssw0rd", 12),
-      roleID: teacher.id,
+      roleID: user.id,
       profile: {
         create: {
-          name: "Aji Bayu Nugroho",
+          name: "Mahesadev",
         },
       },
-    },
-  });
-
-  // create user student
-  const studentUser = await prisma.user.create({
-    data: {
-      email: "tama@gmail.com",
-      password: bcrypt.hashSync("P@ssw0rd", 12),
-      roleID: student.id,
-      profile: {
-        create: {
-          name: "Pertamawati",
-        },
-      },
-    },
-  });
-
-  // create class
-  const class1 = await prisma.class.create({
-    data: {
-      name: "XII RPL 1",
-      teacherId: teacherUser.id,
-    },
-  });
-
-  // create payment
-  const spp = await prisma.payment.create({
-    data: {
-      name: "SPP",
-      type: "semester",
-      amount: 1000000,
-    },
-  });
-
-  // create parent
-  const parent1 = await prisma.parent.create({
-    data: {
-      name: "Tono",
-      address: "Jl. Sukaraja No. 1",
-      phone: "081234567890",
-      userId: studentUser.id,
-    },
-  });
-
-  // create subject
-  const subject1 = await prisma.subject.create({
-    data: {
-      name: "Bahasa Indonesia",
-    },
-  });
-
-  // create scoreCategory
-  const scoreCategory1 = await prisma.scoreCategory.create({
-    data: {
-      name: "Ulangan Harian",
-    },
-  });
-
-  // create score
-  const score1 = await prisma.score.create({
-    data: {
-      subjectId: subject1.id,
-      userId: studentUser.id,
-      score: 90,
-      categoryId: scoreCategory1.id,
-    },
-  });
-
-  // create payment method
-  const qris = await prisma.paymentMethod.create({
-    data: {
-      name: "qris",
-      image:
-        "https://seeklogo.com/images/Q/quick-response-code-indonesia-standard-qris-logo-F300D5EB32-seeklogo.com.png",
-    },
-  });
-
-  const generateReferenceNumber =
-    "INV-" +
-    Math.floor(100000 + Math.random() * 900000) +
-    "-" +
-    new Date().toISOString().slice(11, 16).replace(":", "");
-
-  // create transaction
-  const transaction1 = await prisma.transaction.create({
-    data: {
-      referenceNumber: generateReferenceNumber,
-      userId: studentUser.id,
-      paymentMethodId: qris.id,
-    },
-  });
-
-  // create transaction detail
-  const transactionDetail1 = await prisma.transactionDetail.create({
-    data: {
-      transactionId: transaction1.id,
-      paymentId: spp.id,
     },
   });
 }

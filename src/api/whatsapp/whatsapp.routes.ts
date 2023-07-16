@@ -140,7 +140,7 @@ router.post("/send-message/:user", async (req: any, res: any, next: any) => {
 router.post(
   "/send-template-message/:user",
   async (req: any, res: any, next: any) => {
-    const { number, message } = req.body;
+    const { number, message, list } = req.body;
 
     const { user } = req.params;
 
@@ -151,11 +151,15 @@ router.post(
         message: "User not found, please connect to server first",
       });
 
-    if (!number || !message)
-      return res.json({ message: "Please provide number and message" });
+    if (!number || !message || !list)
+      return res.json({ message: "Please provide number, message and list" });
 
     try {
-      const sentMsg = await isUser.client.sendTemplateMessage(number, message);
+      const sentMsg = await isUser.client.sendTemplateMessage(
+        number,
+        message,
+        list
+      );
       res.json({ message: sentMsg });
     } catch (error) {
       next(error);

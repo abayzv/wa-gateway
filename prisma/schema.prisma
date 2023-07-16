@@ -18,14 +18,6 @@ model User {
   profile       Profile?
   roleID        Int
   role          Role           @relation(fields: [roleID], references: [id])
-  parent        Parent?
-  classId       String?
-  class         Class?         @relation(fields: [classId], references: [id])
-  teacherClass  Class?         @relation(name: "TeacherClass")
-  subjectId     String?        @unique
-  subject       Subject?       @relation(fields: [subjectId], references: [id])
-  transaction   Transaction[]
-  score         Score[]
   activityLog   ActivityLog[]
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
@@ -53,107 +45,6 @@ model Profile {
   user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
-}
-
-model Parent {
-  id       String    @id @default(uuid())
-  name     String
-  address  String
-  phone    String
-  userId   String     @unique
-  user     User       @relation(fields: [userId], references: [id], onDelete: Cascade)
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-}
-
-model Class {
-  id        String    @id @default(uuid())
-  name      String
-  teacherId String    @unique
-  teacher   User      @relation(name: "TeacherClass", fields: [teacherId], references: [id])
-  student   User[]
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-}
-
-model ScoreCategory {
-  id        String    @id @default(uuid())
-  name      String
-  score     Score[]
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-}
-
-model Score {
-  id        String   @id @default(uuid())
-  userId    String
-  user      User     @relation(fields: [userId], references: [id])
-  subjectId String
-  subject   Subject  @relation(fields: [subjectId], references: [id])
-  score     Int
-  categoryId String
-  category  ScoreCategory @relation(fields: [categoryId], references: [id])
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model Subject {
-  id        String   @id @default(uuid())
-  name      String
-  user      User[]
-  score     Score[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-enum PaymentType {
-  registration
-  monthly
-  semester
-}
-
-model PaymentMethod {
-  id        Int       @id @default(autoincrement())
-  name      String
-  image     String
-  transaction Transaction[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model Transaction {
-  id        String    @id @default(uuid())
-  referenceNumber String
-  userId    String
-  user      User      @relation(fields: [userId], references: [id])
-  items   TransactionDetail[]
-  paymentMethodId Int 
-  paymentMethod PaymentMethod @relation(fields: [paymentMethodId], references: [id])
-  status    String    @default("pending")
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-}
-
-model Payment {
-  id        String   @id @default(uuid())
-  name      String
-  type      PaymentType @default(monthly)
-  amount    Int
-  transaction      TransactionDetail[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model TransactionDetail {
-  transactionId    String
-  transaction      Transaction     @relation(fields: [transactionId], references: [id], onDelete: Cascade)
-  paymentId String
-  payment   Payment  @relation(fields: [paymentId], references: [id])
-  notes     String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@id([transactionId, paymentId])
 }
 
 model Role {
