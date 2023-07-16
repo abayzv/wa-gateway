@@ -26,6 +26,7 @@ export interface WaGateway {
   profile: any;
   sendMessage(number: string, message: string): Promise<any>;
   sendTemplateMessage(number: string, message: string): Promise<any>;
+  sendImage(number: string, message: string, imageUrl: string): Promise<any>;
   logout(): Promise<any>;
 }
 
@@ -140,6 +141,25 @@ class Wa implements WaGateway {
     try {
       const sendMsg = await this.client.sendMessage(id, templateMessage);
       return sendMsg;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async sendImage(number: string, message: string, imageUrl: string) {
+    // if number first ist 0, replace with 62
+    if (number[0] === "0") {
+      number = number.replace("0", "62");
+    }
+
+    const id = `${number}@s.whatsapp.net`;
+
+    try {
+      const sentMsg = await this.client.sendMessage(id, {
+        caption: message,
+        image: { url: imageUrl },
+      });
+      return sentMsg;
     } catch (error) {
       console.log(error);
     }

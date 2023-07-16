@@ -163,6 +163,32 @@ router.post(
   }
 );
 
+// send template message
+router.post("/send-image/:user", async (req: any, res: any, next: any) => {
+  const { number, message, imageUrl } = req.body;
+
+  const { user } = req.params;
+
+  const isUser = session.find((item) => item.user === user);
+
+  if (!isUser)
+    return res.json({
+      message: "User not found, please connect to server first",
+    });
+
+  if (!number || !message || !imageUrl)
+    return res.json({
+      message: "Please provide number and message and imageUrl",
+    });
+
+  try {
+    const sentMsg = await isUser.client.sendImage(number, message, imageUrl);
+    res.json({ message: sentMsg });
+  } catch (error) {
+    next(error);
+  }
+});
+
 // logout
 router.get("/logout/:user", async (req: any, res: any, next: any) => {
   const { user } = req.params;
