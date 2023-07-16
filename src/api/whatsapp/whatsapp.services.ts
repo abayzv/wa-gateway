@@ -28,10 +28,6 @@ async function waGateway(user: string) {
       if (shouldReconnect) {
         waGateway(user);
       }
-
-      if (qr) {
-        console.log("qr code", qr);
-      }
     } else if (connection === "open") {
       console.log("opened connection");
     }
@@ -47,20 +43,21 @@ async function waGateway(user: string) {
   });
 
   sock.ev.on("creds.update", saveCreds);
+
+  return sock;
 }
 
 class Wa {
-  constructor(user: string) {
-    this.user = user;
+  client: any;
+  qrCode: string | undefined;
+
+  async connect(user: string) {
+    this.client = await waGateway(user);
+    this.client.ev.on("connection.update", async (update: any) => {
+      const { qr } = update;
+      this.qrCode = qr;
+    });
   }
-
-  user: string;
-
-  async connect() {
-    await waGateway(this.user);
-  }
-
-  async getQrCode() {}
 }
 
 export default Wa;
