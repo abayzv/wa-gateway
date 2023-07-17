@@ -113,9 +113,9 @@ model BroadcastMessage {
   type        BroadcastType
   number      Int
   message     String
-  imageUrl    String
+  imageUrl    String?
   status      String
-  description String
+  description String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }

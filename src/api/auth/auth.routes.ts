@@ -41,7 +41,7 @@ router.post(
         email,
         password,
         name,
-        roleID: roleId ? roleId : 4,
+        roleID: roleId ? roleId : 3,
       });
       const jti = uuidv4();
       const { accessToken, refreshToken } = generateTokens(user, jti);
