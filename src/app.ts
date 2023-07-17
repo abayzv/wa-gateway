@@ -8,10 +8,6 @@ import dotenv from "dotenv";
 import { notFound, errorHandler } from "./middlewares";
 import router from "./api";
 
-// @ts-ignore
-import swaggerUi from "swagger-ui-express";
-import { swaggerConfig } from "./config/swagger";
-
 dotenv.config();
 
 const app: express.Application = express();
@@ -21,8 +17,10 @@ app.use(helmet());
 app.use(cors());
 app.use(express.json());
 
-// swagger
-app.use("/", swaggerUi.serve, swaggerUi.setup(swaggerConfig));
+app.get("/", (req: express.Request, res: express.Response) => {
+  // redirect to swagger docs
+  res.redirect("/api/v1/api-docs");
+});
 
 // app.use(activityLogger);
 
