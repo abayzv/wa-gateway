@@ -93,6 +93,7 @@ class Wa implements WaGateway {
       const sentMsg = await this.client.sendMessage(id, {
         text: message,
       });
+
       return sentMsg;
     } catch (error) {
       console.log(error);

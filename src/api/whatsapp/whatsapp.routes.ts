@@ -3,6 +3,8 @@ import Wa from "./whatsapp.services";
 import QRCode from "qrcode";
 import { WaGateway } from "./whatsapp.services";
 import { isPermited, isAuthenticated } from "../../middlewares";
+import { createBroadcast } from "../broadcast/broadcast.services";
+import { BroadcastType } from "@prisma/client";
 
 interface Session {
   user: string;
@@ -150,8 +152,30 @@ router.post(
 
     try {
       const sentMsg = await isUser.client.sendMessage(number, message);
+
+      const broadcastData = {
+        user: req.payload.userId,
+        title: "Send Message",
+        number: number,
+        type: BroadcastType.TEXT,
+        status: "success",
+        message: message,
+      };
+
+      await createBroadcast(broadcastData);
+
       res.json({ message: sentMsg });
     } catch (error) {
+      const broadcastData = {
+        user: req.payload.userId,
+        title: "Send Message",
+        number: number,
+        type: BroadcastType.TEXT,
+        status: "failed",
+        message: message,
+      };
+
+      await createBroadcast(broadcastData);
       next(error);
     }
   }
@@ -183,8 +207,31 @@ router.post(
         message,
         list
       );
+
+      const broadcastData = {
+        user: req.payload.userId,
+        title: "Send Template Message",
+        number: number,
+        type: BroadcastType.TEMPLATE,
+        status: "success",
+        message: message,
+      };
+
+      await createBroadcast(broadcastData);
+
       res.json({ message: sentMsg });
     } catch (error) {
+      const broadcastData = {
+        user: req.payload.userId,
+        title: "Send Template Message",
+        number: number,
+        type: BroadcastType.TEMPLATE,
+        status: "failed",
+        message: message,
+      };
+
+      await createBroadcast(broadcastData);
+
       next(error);
     }
   }
@@ -214,8 +261,33 @@ router.post(
 
     try {
       const sentMsg = await isUser.client.sendImage(number, message, imageUrl);
+
+      const broadcastData = {
+        user: req.payload.userId,
+        title: "Send Image",
+        number: number,
+        type: BroadcastType.MEDIA,
+        status: "success",
+        message: message,
+        imageUrl: imageUrl,
+      };
+
+      await createBroadcast(broadcastData);
+
       res.json({ message: sentMsg });
     } catch (error) {
+      const broadcastData = {
+        user: req.payload.userId,
+        title: "Send Image",
+        number: number,
+        type: BroadcastType.MEDIA,
+        status: "failed",
+        message: message,
+        imageUrl: imageUrl,
+      };
+
+      await createBroadcast(broadcastData);
+
       next(error);
     }
   }

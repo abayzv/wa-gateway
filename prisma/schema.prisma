@@ -111,7 +111,7 @@ model BroadcastMessage {
   user        User     @relation(fields: [userId], references: [id])
   title       String
   type        BroadcastType
-  number      Int
+  number      String
   message     String
   imageUrl    String?
   status      String

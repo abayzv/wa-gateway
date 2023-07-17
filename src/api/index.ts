@@ -10,6 +10,7 @@ import permission from "./permission/permission.routes";
 import whatsapp from "./whatsapp/whatsapp.routes";
 import contact from "./contact/contact.routes";
 import contactGroup from "./contactGroup/contactGroup.routes";
+import broadcast from "./broadcast/broadcast.routes";
 
 const router = express.Router();
 
@@ -20,6 +21,7 @@ router.use("/permissions", permission);
 router.use("/wa-gateway", whatsapp);
 router.use("/contacts", contact);
 router.use("/contact-groups", contactGroup);
+router.use("/message-log", broadcast);
 
 // Swagger setup
 
