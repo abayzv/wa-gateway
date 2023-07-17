@@ -1033,6 +1033,11 @@ exports.swaggerConfig = {
             post: {
                 tags: ["Contact"],
                 summary: "Create Contact",
+                security: [
+                    {
+                        bearerAuth: [],
+                    },
+                ],
                 requestBody: {
                     content: {
                         "application/json": {
@@ -1106,6 +1111,11 @@ exports.swaggerConfig = {
             post: {
                 tags: ["Contact Group"],
                 summary: "Create Contact",
+                security: [
+                    {
+                        bearerAuth: [],
+                    },
+                ],
                 requestBody: {
                     content: {
                         "application/json": {

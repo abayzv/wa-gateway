@@ -8,6 +8,10 @@ import dotenv from "dotenv";
 import { notFound, errorHandler } from "./middlewares";
 import router from "./api";
 
+// @ts-ignore
+import swaggerUi from "swagger-ui-express";
+import { swaggerConfig } from "./config/swagger";
+
 dotenv.config();
 
 const app: express.Application = express();
@@ -17,11 +21,8 @@ app.use(helmet());
 app.use(cors());
 app.use(express.json());
 
-app.get("/", (req: express.Request, res: express.Response) => {
-  res.json({
-    message: "unicornheadrainbow✨hi✨rainbowunicornhead",
-  });
-});
+// swagger
+app.use("/", swaggerUi.serve, swaggerUi.setup(swaggerConfig));
 
 // app.use(activityLogger);
 
