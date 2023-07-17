@@ -246,23 +246,6 @@ router.get(
       const userResponse: any = {};
       const userTransaction: any = [];
 
-      // get user transaction
-      user.transaction.forEach((transaction: any) => {
-        let amount = 0;
-        transaction.items.forEach((item: any) => {
-          amount += item.payment.amount;
-        });
-
-        userTransaction.push({
-          id: transaction.id,
-          ammount: amount,
-          payment: transaction.payment,
-          items: transaction.items,
-          createdAt: transaction.createdAt,
-          updatedAt: transaction.updatedAt,
-        });
-      });
-
       const mapCategoryScore = (data: Array<any>) => {
         // group data by item.category.name in data
         const groupByCategory = data.reduce((acc: any, item: any) => {
@@ -302,8 +285,6 @@ router.get(
           userResponse["email"] = user.email;
           userResponse["role"] = UserRoles[user.roleID];
           userResponse["profile"] = user.profile;
-          userResponse["class"] = user.teacherClass;
-          userResponse["subject"] = user.subject;
           userResponse["createdAt"] = user.createdAt;
           userResponse["updatedAt"] = user.updatedAt;
           break;
@@ -311,10 +292,6 @@ router.get(
           userResponse["email"] = user.email;
           userResponse["role"] = UserRoles[user.roleID];
           userResponse["profile"] = user.profile;
-          userResponse["parent"] = user.parent;
-          userResponse["class"] = user.class;
-          userResponse["score"] = mapCategoryScore(user.score);
-          userResponse["transaction"] = userTransaction;
           userResponse["createdAt"] = user.createdAt;
           userResponse["updatedAt"] = user.updatedAt;
       }

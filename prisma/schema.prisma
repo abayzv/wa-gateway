@@ -18,6 +18,9 @@ model User {
   profile       Profile?
   roleID        Int
   role          Role           @relation(fields: [roleID], references: [id])
+  broadcasts    BroadcastMessage[]
+  contacts      Contact[]
+  contactsGroup ContactGroup[]
   activityLog   ActivityLog[]
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
@@ -90,6 +93,52 @@ model ActivityLog {
   user        User     @relation(fields: [userId], references: [id])
   action      String
   description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+enum BroadcastType {
+  TEXT
+  MEDIA
+  BUTTONS
+  TEMPLATE
+  LIST
+}
+
+model BroadcastMessage {
+  id          String   @id @default(uuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  title       String
+  type        BroadcastType
+  number      Int
+  message     String
+  imageUrl    String
+  status      String
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Contact {
+  id          String   @id @default(uuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  name        String
+  phoneNumber String
+  groupId     String?
+  group       ContactGroup? @relation(fields: [groupId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model ContactGroup {
+  id          String   @id @default(uuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  name        String
+  description String
+  contacts    Contact[]
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }

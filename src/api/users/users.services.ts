@@ -97,64 +97,6 @@ function viewUserDetails(id: string) {
           photo: true,
         },
       },
-      class: {
-        select: {
-          id: true,
-          name: true,
-        },
-      },
-      score: {
-        select: {
-          id: true,
-          score: true,
-          subject: {
-            select: {
-              name: true,
-            },
-          },
-          category: {
-            select: {
-              name: true,
-            },
-          },
-        },
-      },
-      teacherClass: {
-        select: {
-          id: true,
-          name: true,
-        },
-      },
-      transaction: {
-        select: {
-          id: true,
-          items: {
-            select: {
-              payment: {
-                select: {
-                  name: true,
-                  type: true,
-                  amount: true,
-                },
-              },
-            },
-          },
-          createdAt: true,
-          updatedAt: true,
-        },
-      },
-      parent: {
-        select: {
-          name: true,
-          phone: true,
-          address: true,
-        },
-      },
-      subject: {
-        select: {
-          name: true,
-        },
-      },
       createdAt: true,
       updatedAt: true,
     },
