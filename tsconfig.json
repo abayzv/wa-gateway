@@ -7,14 +7,15 @@
       "sourceMap": true,
       "outDir": "dist",
       "strict": true,
-      "lib": ["esnext"],
+      "lib": ["esnext", "dom"],
       "esModuleInterop": true,
       "typeRoots": [
         "node_modules/@types",
       ],
       "types": [
         "express",
-        "jest"
+        "jest",
+        "long"
       ],
     }
   }

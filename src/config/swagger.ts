@@ -559,6 +559,11 @@ export const swaggerConfig = {
       get: {
         tags: ["WA Server"],
         summary: "Connect To Server",
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
         parameters: [
           {
             name: "user",
@@ -584,6 +589,11 @@ export const swaggerConfig = {
       get: {
         tags: ["WA Server"],
         summary: "Get Status",
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
         parameters: [
           {
             name: "user",
@@ -609,6 +619,11 @@ export const swaggerConfig = {
       get: {
         tags: ["WA Server"],
         summary: "Get Session",
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
         responses: {
           "200": {
             description: "Successful response",
@@ -623,6 +638,11 @@ export const swaggerConfig = {
       get: {
         tags: ["WA Server"],
         summary: "Logout",
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
         parameters: [
           {
             name: "user",
@@ -648,6 +668,11 @@ export const swaggerConfig = {
       post: {
         tags: ["Send Message"],
         summary: "Send Normal Message",
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
         requestBody: {
           content: {
             "application/json": {
@@ -686,6 +711,11 @@ export const swaggerConfig = {
       post: {
         tags: ["Send Message"],
         summary: "Send Image",
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
         requestBody: {
           content: {
             "application/json": {
@@ -726,6 +756,11 @@ export const swaggerConfig = {
       post: {
         tags: ["Send Message"],
         summary: "Send Template Message (Only visible on WA Desktop / WA Web)",
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
         requestBody: {
           content: {
             "application/json": {
@@ -981,6 +1016,11 @@ export const swaggerConfig = {
       get: {
         tags: ["Contact"],
         summary: "View All Contacts",
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
         responses: {
           "200": {
             description: "Successful response",
@@ -993,6 +1033,11 @@ export const swaggerConfig = {
       post: {
         tags: ["Contact"],
         summary: "Create Contact",
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
         requestBody: {
           content: {
             "application/json": {
@@ -1020,6 +1065,11 @@ export const swaggerConfig = {
       delete: {
         tags: ["Contact"],
         summary: "Delete Contact",
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
         parameters: [
           {
             name: "id",
@@ -1044,6 +1094,11 @@ export const swaggerConfig = {
       get: {
         tags: ["Contact Group"],
         summary: "View All Contacts",
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
         responses: {
           "200": {
             description: "Successful response",
@@ -1056,6 +1111,11 @@ export const swaggerConfig = {
       post: {
         tags: ["Contact Group"],
         summary: "Create Contact",
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
         requestBody: {
           content: {
             "application/json": {
@@ -1083,6 +1143,11 @@ export const swaggerConfig = {
       delete: {
         tags: ["Contact Group"],
         summary: "Delete Contact",
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
         parameters: [
           {
             name: "id",
@@ -1107,6 +1172,11 @@ export const swaggerConfig = {
       get: {
         tags: ["Message Log"],
         summary: "Get Log",
+        security: [
+          {
+            bearerAuth: [],
+          },
+        ],
         responses: {
           "200": {
             description: "Successful response",
