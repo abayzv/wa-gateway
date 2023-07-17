@@ -21,7 +21,7 @@ const router = express.Router();
 
 router.post(
   "/register",
-  activityLogger("Register", "New User was registered", false),
+  // activityLogger("Register", "New User was registered", false),
   async (req: any, res: any, next: any) => {
     try {
       const { email, password, name, roleId } = req.body;
@@ -59,7 +59,7 @@ router.post(
 
 router.post(
   "/login",
-  activityLogger("Login", "User was logged in", false),
+  // activityLogger("Login", "User was logged in", false),
   async (req: any, res: any, next: any) => {
     try {
       const { email, password } = req.body;

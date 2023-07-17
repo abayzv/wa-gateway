@@ -13,7 +13,9 @@ const jwt_1 = require("../../utils/jwt");
 const auth_services_1 = require("./auth.services");
 const hashToken_1 = require("../../utils/hashToken");
 const router = express_1.default.Router();
-router.post("/register", (0, middlewares_1.activityLogger)("Register", "New User was registered", false), async (req, res, next) => {
+router.post("/register", 
+// activityLogger("Register", "New User was registered", false),
+async (req, res, next) => {
     try {
         const { email, password, name, roleId } = req.body;
         if (!email || !password || !name) {
@@ -43,7 +45,9 @@ router.post("/register", (0, middlewares_1.activityLogger)("Register", "New User
         next(err);
     }
 });
-router.post("/login", (0, middlewares_1.activityLogger)("Login", "User was logged in", false), async (req, res, next) => {
+router.post("/login", 
+// activityLogger("Login", "User was logged in", false),
+async (req, res, next) => {
     try {
         const { email, password } = req.body;
         if (!email || !password) {

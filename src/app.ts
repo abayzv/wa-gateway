@@ -18,8 +18,10 @@ app.use(cors());
 app.use(express.json());
 
 app.get("/", (req: express.Request, res: express.Response) => {
-  // redirect to swagger docs
-  res.redirect("/api/v1/api-docs");
+  res.json({
+    message: "Wellcome to Mahesadev Whatsapp Gateway API",
+    docs: "/api/v1/api-docs",
+  });
 });
 
 // app.use(activityLogger);
