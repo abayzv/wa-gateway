@@ -122,7 +122,7 @@ router.get(
     }
 
     // @ts-ignore
-    const qrCode = await QRCode.toDataURL(isUser.client.status);
+    const qrCode = await QRCode.toDataURL(isUser.client.qrCode);
     try {
       res.json({ qrcode: qrCode, status: isUser.client.status });
     } catch (error) {
